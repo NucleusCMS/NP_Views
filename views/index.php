@@ -64,13 +64,13 @@
         }
 
         $query ="SELECT count(*) as total FROM " . sql_table('plugin_views');
-        $rows = mysql_query($query);
-        $row=mysql_fetch_object($rows);
+        $rows = sql_query($query);
+        $row=sql_fetch_object($rows);
         $max_item = $row->total;
         //echo "total count " . $max_item . "<br/>";
 
 	$query = "SELECT id,views FROM " . sql_table('plugin_views') . " ORDER BY " . $sorting . $desc . " LIMIT " . $offset . ",40";
-        $rows = mysql_query($query);
+        $rows = sql_query($query);
 
         if ($sorting == 'id') {
                 $idir = "(".$order.")";
@@ -81,7 +81,7 @@
         echo "<table>\n";
         echo "<tr><th><a href=\"" . $viewsURL . "?sort=id" . $param ."\">ItemID " . $idir . "</a></th><th><a href =\"" . $viewsURL .  "?sort=views" . $param . "\">View Count " . $vdir . "</a></th><th>Action</th></tr>";
 
-	while($row = mysql_fetch_object($rows)) {
+	while($row = sql_fetch_object($rows)) {
 		$item = $manager->getItem($row->id, 0, 0);
                 $delurl = $CONF['ActionURL'] . '?action=plugin&name=Views&type=resetview&id=' . $row->id . "&order=" . $orderby . "&sort=" . $sortby; 
 		echo "<tr>";
