@@ -123,7 +123,7 @@ class NP_Views extends NucleusPlugin {
       // get the current Views count
       $query = "SELECT views FROM " . sql_table('plugin_views') . " WHERE id=" . $itemid;
       $result = sql_query($query);
-      $row = mysql_fetch_object($result);
+      $row = sql_fetch_object($result);
       $views = intval($row->views);
 
       // Only do count updates if "skipcount" is not set
@@ -131,7 +131,7 @@ class NP_Views extends NucleusPlugin {
       {
 
          // This takes care of previous items
-         if (mysql_num_rows($result) == 0)
+         if (sql_num_rows($result) == 0)
          {
             $query = "INSERT INTO " . sql_table('plugin_views') . " (id, views) VALUES('$itemid', '1')";
             sql_query($query);
@@ -143,7 +143,7 @@ class NP_Views extends NucleusPlugin {
          $result = sql_query($query);
 
          // No views from this IP in the past X hours, so update the Views count
-         if (mysql_num_rows($result) == 0)
+         if (sql_num_rows($result) == 0)
          {
             $views++;
             $this->_updateViewsCount($itemid, $views);
@@ -151,7 +151,7 @@ class NP_Views extends NucleusPlugin {
          } // end if
          else
          {
-            $viewtime = mysql_result($result, 0, 'viewtime');
+            $viewtime = sql_result($result, 0, 'viewtime');
 
             // It's been longer than X hours, so recount
             if (($now - $timespan) > $viewtime)
