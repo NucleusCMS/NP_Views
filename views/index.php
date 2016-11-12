@@ -2,12 +2,12 @@
 	// if your 'plugin' directory is not in the default location,
 	// edit this variable to point to your site directory
 	// (where config.php is)
-	$strRel = '../../../'; 
+	$strRel = '../../../';
 
 	include($strRel . 'config.php');
 	if (!$member->isLoggedIn())
 		doError('You\'re not logged in.');
-		
+
 	include($DIR_LIBS . 'PLUGINADMIN.php');
 
 	// create the admin area page
@@ -83,9 +83,9 @@
 
 	while($row = sql_fetch_object($rows)) {
 		$item = $manager->getItem($row->id, 0, 0);
-                $delurl = $CONF['ActionURL'] . '?action=plugin&name=Views&type=resetview&id=' . $row->id . "&order=" . $orderby . "&sort=" . $sortby; 
+                $delurl = $CONF['ActionURL'] . '?action=plugin&name=Views&type=resetview&id=' . $row->id . "&order=" . $orderby . "&sort=" . $sortby;
 		echo "<tr>";
-		echo "<td><a href=\"" . $CONF['IndexURL'] . createItemLink($row->id) . "\">" . $item['title'] . "</a></td>";
+		echo "<td><a href=\"" . createItemLink($row->id) . "\">" . $item['title'] . "</a></td>";
 		echo "<td>" . $row->views . "</td>";
 		echo "<td>" . "<a href=\"" . $delurl . "\">Reset count</a>" . "</td>";
 		echo "</tr>";
@@ -121,4 +121,3 @@
         echo $prelink . " | " . $nextlink . "<br/>";
 
 	$oPluginAdmin->end();
-?>
