@@ -1,4 +1,4 @@
-<?
+<?php
 /*
   History:
     v1.1
@@ -35,6 +35,10 @@
       - Added item title in admin menu
     v1.9.1
       - ignore draft in admin menu
+    v1.9.1-fix1
+      - short_open_tag off
+			- getURL method
+      - delete [$CONF['IndexURL'] . ] for views/index.php
 */
 class NP_Views extends NucleusPlugin {
 
@@ -53,10 +57,11 @@ class NP_Views extends NucleusPlugin {
       return 'Rodrigo Moraes | Edmond Hui (admun) | gRegor Morrill';
    }
    function getURL() {
-      return 'http://www.tipos.com.br';
+      // return 'http://www.tipos.com.br';
+      return 'https://github.com/NucleusCMS/NP_Views';
    }
    function getVersion() {
-      return '1.9.1';
+      return '1.9.1-fix1';
    }
    function getDescription() {
       return 'This plugin counts how many times an entry has been displayed.';
@@ -113,7 +118,7 @@ class NP_Views extends NucleusPlugin {
                  )
            );
    }
-   
+
    function doTemplateVar(&$item, $input) {
       $itemid = $item->itemid;
       $remote_ip = ServerVar('REMOTE_ADDR');
@@ -224,4 +229,3 @@ class NP_Views extends NucleusPlugin {
       header('Location: ' . $CONF['PluginURL'] . 'views/index.php?sort=' . $sort . '&order='.$order);
    }
 }
-?>
