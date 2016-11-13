@@ -100,7 +100,7 @@ class NP_Views extends NucleusPlugin {
         
         // Clear logs that are more than X hours old
         $time = $now - $timespan;
-        sql_query(sprintf("DELETE FROM %s WHERE (viewtime < %s)", sql_table('plugin_views_log'), $time));
+        sql_query(sprintf('DELETE FROM %s WHERE (viewtime < %s)', sql_table('plugin_views_log'), $time));
         
         if($this->getOption('silent')=='no') echo $views;
    }
@@ -136,19 +136,19 @@ class NP_Views extends NucleusPlugin {
         if     ($actionType == 'resetview')
             sql_query(sprintf('UPDATE %s SET views=0 WHERE id=%s', sql_table('plugin_views'), requestVar('id')));
         elseif ($actionType == 'resetallview')
-            sql_query(sprintf("UPDATE %s SET views=0",             sql_table('plugin_views')));
+            sql_query(sprintf('UPDATE %s SET views=0',             sql_table('plugin_views')));
         
-        $url = $CONF['PluginURL'] . sprintf("views/index.php?sort=%s&order=%s", requestVar('sort'), requestVar('order'));
+        $url = $CONF['PluginURL'] . sprintf('views/index.php?sort=%s&order=%s', requestVar('sort'), requestVar('order'));
         header('Location: ' . $url);
     }
     
     function install() {
-      sql_query('CREATE TABLE IF NOT EXISTS ' . sql_table('plugin_views') . ' (id int(11) NOT NULL default "0", views int(15) NOT NULL default "0")');
-      sql_query('CREATE TABLE IF NOT EXISTS ' . sql_table('plugin_views_log') . ' (id int(11) NOT NULL auto_increment, ip varchar(20) NOT NULL default "", itemid int(11) NOT NULL default "0", viewtime varchar(32) NOT NULL default "", PRIMARY KEY (id)
-)');
-      $this->createOption('silent','Silent mode - No #Display shown in Item (still need to add the skinVar, for use with MostViewed)','yesno','no');
-      $this->createOption('deletetables',"Delete this plugin's table and data when uninstalling?",'yesno','yes');
-      $this->createOption('timespan', 'Hours to wait before re-counting visitors', 'text', '2');
+        sql_query('CREATE TABLE IF NOT EXISTS ' . sql_table('plugin_views') . " (id int(11) NOT NULL default '0', views int(15) NOT NULL default '0')");
+        sql_query('CREATE TABLE IF NOT EXISTS ' . sql_table('plugin_views_log') . " (id int(11) NOT NULL auto_increment, ip varchar(20) NOT NULL default '', itemid int(11) NOT NULL default '0', viewtime varchar(32) NOT NULL default '', PRIMARY KEY (id)
+        )");
+        $this->createOption('silent','Silent mode - No #Display shown in Item (still need to add the skinVar, for use with MostViewed)','yesno','no');
+        $this->createOption('deletetables',"Delete this plugin's table and data when uninstalling?",'yesno','yes');
+        $this->createOption('timespan', 'Hours to wait before re-counting visitors', 'text', '2');
     }
 
     function unInstall() {
